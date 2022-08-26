@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Snake Game By hanter</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+
+  <body>
+    <div id="game">
+      <canvas id="gameCanvas"></canvas>
+      <div class="gameMenu">
+        <h1 class="title">....</h1>
+        <h2 id="score" class="score">Score: 0</h2>
+        <button id="play" class="gameButton">Play</button>
+        <button id="resume" class="gameButton">Resume</button>
+        <button id="restart" class="gameButton">Restart</button>
+        <button id="settings" class="gameButton">Settings</button>
+        <!-- <input id= "playinput" type="range"></input> -->
+        <button id="close" class="gameButton">close</button>
+      </div>
+    </div>
+  </body>
+  <!-- initialize game objects first -->
+  <script src="./app.js"></script>
+  <script>
+    let snakeGame;
+    window.addEventListener("load", (e) => {
+      //browser takes some time to prepare canvas Elements
+      snakeGame = new Game("game", 500, 500, 20, 0.1);
+    });
+  </script>
+</html>
