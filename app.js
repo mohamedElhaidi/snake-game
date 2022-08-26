@@ -1,7 +1,5 @@
 "use strict";
 
-
-
 const Line = function (start, length, direction, type = "rect") {
   this.start = start;
   this.width = 0;
@@ -265,7 +263,7 @@ class Snake {
       case "food":
         this.feed(1);
         this.game.deleteObjectToWorld(obj);
-        this.game.generateFood()
+        this.game.generateFood();
         break;
 
       case "border":
@@ -308,12 +306,12 @@ class Game {
   #closeButton;
 
   /*game vars*/
-  #canvas ;
-  #ctx ;
-  #width ;
-  #height ;
-  #cells ;
-  #tickSpeed ;
+  #canvas;
+  #ctx;
+  #width;
+  #height;
+  #cells;
+  #tickSpeed;
   #DeltaTime = 1000;
 
   #score = 0;
@@ -327,17 +325,19 @@ class Game {
   #debug = 0;
 
   #UpdateListeners = [];
-  constructor(gameElementId, width, height,numberOfCells = 20, tickSpeed = 1) {
-    this.#gameElement = document.querySelector('#' + gameElementId);
-    this.#mainMenu = this.#gameElement.querySelector('.gameMenu');
-    this.#mainMenuTitle = this.#mainMenu.querySelector('.title');
-    this.#mainMenuScore = this.#mainMenu.querySelector('.score');
-    this.#playButton = this.#gameElement.querySelector('#play');
-    this.#restartButton = this.#gameElement.querySelector('#restart');
-    this.#resumeButton = this.#gameElement.querySelector('#resume');
-    this.#settingsButton = this.#gameElement.querySelector('#settings');
-    this.#closeButton = this.#gameElement.querySelector('#close');
-    this.#canvas = this.#gameElement.querySelector('#' + gameElementId + ' #gameCanvas');
+  constructor(gameElementId, width, height, numberOfCells = 20, tickSpeed = 1) {
+    this.#gameElement = document.querySelector("#" + gameElementId);
+    this.#mainMenu = this.#gameElement.querySelector(".gameMenu");
+    this.#mainMenuTitle = this.#mainMenu.querySelector(".title");
+    this.#mainMenuScore = this.#mainMenu.querySelector("#score");
+    this.#playButton = this.#gameElement.querySelector("#play");
+    this.#restartButton = this.#gameElement.querySelector("#restart");
+    this.#resumeButton = this.#gameElement.querySelector("#resume");
+    this.#settingsButton = this.#gameElement.querySelector("#settings");
+    this.#closeButton = this.#gameElement.querySelector("#close");
+    this.#canvas = this.#gameElement.querySelector(
+      "#" + gameElementId + " #gameCanvas"
+    );
     this.#canvas.width = width;
     this.#canvas.height = height;
     this.#ctx = this.#canvas.getContext("2d");
@@ -345,15 +345,20 @@ class Game {
     this.#height = height;
     this.#cells = numberOfCells;
     this.#tickSpeed = tickSpeed;
-    
-    this.#mainMenu.classList.add('toggle');
-    this.#playButton.classList.add('toggle');
+
+    this.#mainMenu.classList.add("toggle");
+    this.#playButton.classList.add("toggle");
     this.#mainMenuTitle.innerHTML = "The Snake game";
-    
-    this.#playButton.addEventListener('click', ()=> {this.restartGame()});
-    this.#restartButton.addEventListener('click', ()=> {this.restartGame()});
-    this.#resumeButton.addEventListener('click', ()=> {this.resumeGame()});
-    
+
+    this.#playButton.addEventListener("click", () => {
+      this.restartGame();
+    });
+    this.#restartButton.addEventListener("click", () => {
+      this.restartGame();
+    });
+    this.#resumeButton.addEventListener("click", () => {
+      this.resumeGame();
+    });
   }
 
   getCellsCount() {
@@ -400,13 +405,11 @@ class Game {
             0,
             2 * Math.PI
           );
-        else 
-          this.#ctx.rect(...newRect);
+        else this.#ctx.rect(...newRect);
         this.#ctx.fillStyle = obj.color;
         this.#ctx.fill();
         this.#ctx.beginPath();
-        if(this.#debug)
-        {
+        if (this.#debug) {
           let offsetIndicator = this.#ctx.arc(
             newRect[0],
             newRect[1],
@@ -456,7 +459,7 @@ class Game {
       this.Collision();
     }, this.#DeltaTime * this.#tickSpeed);
   }
-  
+
   restartGame() {
     this.#score = 0;
     this.#objects = [];
@@ -466,33 +469,33 @@ class Game {
     this.addUpdateListener(snake.Update, snake);
     this.generateFood();
     this.Update();
-    this.#mainMenu.classList.remove('toggle');
+    this.#mainMenu.classList.remove("toggle");
   }
-  
+
   resumeGame() {
     this.isPaused = false;
     clearInterval(this.updater);
-    this.#mainMenu.classList.remove('toggle');
+    this.#mainMenu.classList.remove("toggle");
   }
   pauseGame() {
     this.isPaused = true;
     clearInterval(this.updater);
-    this.#mainMenu.classList.add('toggle');
+    this.#mainMenu.classList.add("toggle");
     this.#mainMenuTitle.innerHTML = "Game Paused!";
     this.#mainMenuScore.innerHTML = `Your Score: ${this.#score}`;
   }
   endGame() {
     this.isEnded = true;
     clearInterval(this.updater);
-    this.#mainMenu.classList.add('toggle');
+    this.#mainMenu.classList.add("toggle");
     this.#mainMenuTitle.innerHTML = "You died!";
     this.#mainMenuScore.innerHTML = `Your Score: ${this.#score}`;
   }
   generateFood() {
-    let xX = Math.round(Math.random() * (this.#cells -1)) ;
-    let yY = Math.round(Math.random() * (this.#cells -1));
+    let xX = Math.round(Math.random() * (this.#cells - 1));
+    let yY = Math.round(Math.random() * (this.#cells - 1));
     let food = new Food(xX, yY, "red");
-    console.log(xX,yY);
+    console.log(xX, yY);
     this.addObjectToWorld(food);
   }
 
@@ -515,19 +518,23 @@ class Game {
         height: snakeLines[i].height,
       };
       // fix the negative width and height
-      if (rect1.direction == "left") { // left
+      if (rect1.direction == "left") {
+        // left
         rect1.x += rect1.width;
         rect1.width = Math.abs(rect1.width);
       }
-      if (rect1.direction == "up") { // up
+      if (rect1.direction == "up") {
+        // up
         rect1.y += rect1.height;
         rect1.height = Math.abs(rect1.height);
       }
-      if (rect2.direction == "left") { //left
+      if (rect2.direction == "left") {
+        //left
         rect2.x += rect2.width;
         rect2.width = Math.abs(rect2.width);
       }
-      if (rect2.direction == "up") { // up
+      if (rect2.direction == "up") {
+        // up
         rect2.y += rect2.height;
         rect2.height = Math.abs(rect2.height);
       }
@@ -574,6 +581,7 @@ class Game {
       ) {
         // collision with food is detected!
         this.#Snake.onCollision("food", obj);
+        this.#score += 1;
       }
     });
 
@@ -595,10 +603,10 @@ class Game {
     }
 
     if (
-      snakeHead.x + snakeHead.width > this.#cells  ||
-      snakeHead.x  < 0 ||
-      snakeHead.y + snakeHead.height > this.#cells  ||
-      snakeHead.y  < 0
+      snakeHead.x + snakeHead.width > this.#cells ||
+      snakeHead.x < 0 ||
+      snakeHead.y + snakeHead.height > this.#cells ||
+      snakeHead.y < 0
     ) {
       // collision with border is detected!
       this.#Snake.onCollision("border");
@@ -611,7 +619,7 @@ class Food {
   color;
   objType = "food";
   score;
-  constructor(x, y, color = "red",score = 1) {
+  constructor(x, y, color = "red", score = 1) {
     this.lines = [new Line({ x, y }, 1, "down")];
     this.color = color;
     this.score = score;

@@ -4,88 +4,16 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Canvas</title>
+    <title>Snake Game By hanter</title>
+    <link rel="stylesheet" href="./styles.css" />
   </head>
-
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 100vw;
-      height: 100vh;
-    }
-
-    #gameCanvas {
-      border-style: solid;
-      /* background-color: black; */
-    }
-
-    #game {
-      font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .gameMenu {
-      z-index: 2;
-      position: absolute;
-
-      flex-direction: column;
-      gap: 1rem;
-      align-items: center;
-      justify-content: center;
-      background-color: rgba(214, 124, 7, 0.897);
-      color: white;
-      width: 95%;
-      height: 95%;
-      border-radius: 10px;
-      display: none;
-    }
-    .gameMenu.toggle {
-      display: flex;
-    }
-    #game .gameButton {
-      border-width: 0;
-      background-color: yellow;
-      padding: 1rem;
-      font-size: 1rem;
-      font-weight: bold;
-      border-radius: 5px;
-      display: none;
-    }
-
-    #game .gameButton:hover {
-      background-color: rgb(44, 153, 255);
-      cursor: pointer;
-    }
-
-    #game .title {
-     font-size: 2.5rem;
-    }
-    #game .score {
-     font-size: 1.7rem;
-     color: rgb(25, 28, 184);
-    }
-    #game .gameButton.toggle {
-      display: block;
-    }
-  </style>
 
   <body>
     <div id="game">
       <canvas id="gameCanvas"></canvas>
       <div class="gameMenu">
         <h1 class="title">....</h1>
-        <h2 class="score">Score: 0</h2>
+        <h2 id="score" class="score">Score: 0</h2>
         <button id="play" class="gameButton">Play</button>
         <button id="resume" class="gameButton">Resume</button>
         <button id="restart" class="gameButton">Restart</button>
@@ -101,7 +29,7 @@
     let snakeGame;
     window.addEventListener("load", (e) => {
       //browser takes some time to prepare canvas Elements
-      snakeGame = new Game("game", 500, 500,20, 0.1);
+      snakeGame = new Game("game", 500, 500, 20, 0.1);
     });
   </script>
 </html>
